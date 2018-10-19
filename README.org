@@ -1,0 +1,7 @@
+* testdata
+
+A silly helper library for testing.
+
+** TODO's
+*** TODO add unit tests
+*** TODO revisit implementation of TestGold...
