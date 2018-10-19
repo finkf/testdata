@@ -100,7 +100,7 @@ func UpdateString(content, name string) {
 
 // UpdateBytes updates the condent of a gold file.
 func UpdateBytes(content []byte, name string) {
-	err := ioutil.WriteFile(File(name), content, os.ModePerm)
+	err := ioutil.WriteFile(File(name), content, 0666)
 	Must(err)
 }
 
