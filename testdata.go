@@ -10,6 +10,13 @@ import (
 	"testing"
 )
 
+var update *bool
+
+func init() {
+	update = flag.Bool("update", false, "update gold file contents")
+
+}
+
 var errHandle = func(err error) { panic(err) }
 
 // SetErrHandle updates the error handling function.
@@ -62,7 +69,6 @@ func Reader(name string) io.Reader {
 // of the gold file are updated with the given content.
 func GoldString(t *testing.T, got, name string) {
 	t.Helper()
-	update := flag.Bool("update", false, "update gold files")
 	flag.Parse()
 	if *update {
 		UpdateString(got, name)
