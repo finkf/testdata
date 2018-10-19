@@ -62,6 +62,15 @@ func Reader(name string) io.Reader {
 	return bytes.NewBuffer(Bytes(name))
 }
 
+// maybeUpdate checks if the given gold file should be updated.
+// It calls the given function to update.
+func maybeUpdate(name string, f func(string)) {
+	flag.Parse()
+	if *update {
+		f(name)
+	}
+}
+
 // GoldString checks if the given content and the content
 // of the gold file are the same. It calls t.Fatalf iff
 // they are not the same.
@@ -69,10 +78,9 @@ func Reader(name string) io.Reader {
 // of the gold file are updated with the given content.
 func GoldString(t *testing.T, got, name string) {
 	t.Helper()
-	flag.Parse()
-	if *update {
+	maybeUpdate(name, func(name string) {
 		UpdateString(got, name)
-	}
+	})
 	TestGoldString(t, got, name)
 }
 
